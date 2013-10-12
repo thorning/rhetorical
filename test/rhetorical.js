@@ -1,5 +1,8 @@
 var rhetorical = require('../../rhetorical');
 
+rhetorical.init({
+  file : __dirname + '/.asserts'
+});
 
 describe('rhetorical', function () {
 
@@ -15,17 +18,17 @@ describe('rhetorical', function () {
     }
 
   it ('should work', function () {
-    rhetorical(data);
+    rhetorical('should work', data);
   });
 
   it ('should not work', function () {
     data.int1 = 2;
-    rhetorical(data);
+    rhetorical('should not work', data);
   });
 
   it ('should work again', function () {
     data.int1 = 1;
-    rhetorical(data);
+    rhetorical('should work again', data);
   });
 
 })

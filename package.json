@@ -15,6 +15,7 @@
   "readmeFilename": "README.md",
   "gitHead": "2034e41a20086a53839f6a6e9349c6b9cc388341",
   "dependencies": {
-    "underscore": "~1.5.2"
+    "underscore": "~1.5.2",
+    "fs-extra": "~0.7.0"
   }
 }

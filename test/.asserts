@@ -1,0 +1,32 @@
+{
+  "should work": {
+    "string1": "1",
+    "int1": 1,
+    "bool1": true,
+    "bool2": false,
+    "object1": {
+      "int2": 2,
+      "string2": "2"
+    }
+  },
+  "should not work": {
+    "string1": "1",
+    "int1": 2,
+    "bool1": true,
+    "bool2": false,
+    "object1": {
+      "int2": 2,
+      "string2": "2"
+    }
+  },
+  "should work again": {
+    "string1": "1",
+    "int1": 1,
+    "bool1": true,
+    "bool2": false,
+    "object1": {
+      "int2": 2,
+      "string2": "2"
+    }
+  }
+}
