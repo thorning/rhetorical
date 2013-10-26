@@ -7,7 +7,7 @@ var test_data = {
   num1    : 1,
   bool1   : true,
   bool2   : false,
-  date1   : new Date(2000, 0, 1),
+  //date1   : new Date(2000, 0, 1),
   object1 : {
     num2    : 2,
     string2 : '2'
@@ -44,7 +44,7 @@ describe('rhetorical', function () {
   });
 
   it ('should work even though i run it later', function () {
-    test_data.date1 = new Date();
+    //test_data.date1 = new Date();
 
     test_data.num1 = 1;
     test_data.object1.num2 = 2;
@@ -64,5 +64,5 @@ describe('rhetorical', function () {
       rhetorical('my test data is', test_data);  
     })
     
-  });
+   });
 })
