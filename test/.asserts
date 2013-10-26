@@ -1,10 +1,43 @@
 {
-  "should work": {
+  "my test data is": {
+    "string1": "1",
+    "num1": 1,
+    "bool1": true,
+    "bool2": false,
+    "date1": "1999-12-31T23:00:00.000Z",
+    "object1": {
+      "num2": 2,
+      "string2": "2"
+    }
+  },
+  "my mutated test data is": {
+    "string1": "1",
+    "num1": 2,
+    "bool1": true,
+    "bool2": false,
+    "date1": "1999-12-31T23:00:00.000Z",
+    "object1": {
+      "num2": 2,
+      "string2": "2"
+    }
+  },
+  "my random test data is": {
     "string1": "1",
     "bool1": true,
     "bool2": false,
+    "date1": "1999-12-31T23:00:00.000Z",
     "object1": {
-      "int2": 2
+      "string2": "2"
+    }
+  },
+  "my testdata today is": {
+    "string1": "1",
+    "num1": 1,
+    "bool1": true,
+    "bool2": false,
+    "object1": {
+      "num2": 2,
+      "string2": "2"
     }
   }
 }
