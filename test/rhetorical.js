@@ -1,3 +1,4 @@
+var assert = require('assert');
 var rhetorical = require('../../rhetorical');
 
 
@@ -59,6 +60,9 @@ describe('rhetorical', function () {
 
     //I ask the same question as in the first test, and expect
     //it to fail, as the data has changed
-    rhetorical('my test data is', test_data);
+    assert.throws(function () {
+      rhetorical('my test data is', test_data);  
+    })
+    
   });
 })
