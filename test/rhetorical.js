@@ -13,22 +13,32 @@ describe('rhetorical', function () {
       bool2   : false,
       object1 : {
         int2    : 2,
-        string2 : '2'
+        string2 : '3'
       }
     }
 
   it ('should work', function () {
-    rhetorical('should work', data);
+    var meta_data = {
+      int1 : {
+        $exists : true  
+      },
+      object1 : {
+        string2 : {
+          $exists : true
+        }
+      }
+    };
+    rhetorical('should work', data, meta_data);
   });
 
-  it ('should not work', function () {
-    data.int1 = 2;
-    rhetorical('should not work', data);
-  });
+  // it ('should also work', function () {
+  //   data.int1 = 2;
+  //   rhetorical('should also work', data);
+  // });
 
-  it ('should work again', function () {
-    data.int1 = 1;
-    rhetorical('should work again', data);
-  });
+  // it ('should not work', function () {
+  //   data.int1 = 2;
+  //   rhetorical('should work', data);
+  // });
 
 })
