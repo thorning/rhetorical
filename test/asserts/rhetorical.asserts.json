@@ -1,0 +1,19 @@
+{
+  "rhetorical should be equal to test data": {
+    "is test data": 1
+  },
+  "rhetorical should be equal to test data v2": {
+    "is test data": 1.1
+  },
+  "rhetorical should be equal to test data v1": {
+    "is test data": 1.1
+  },
+  "rhetorical should be equal to new test data": {
+    "is test data": {
+      "data": "data",
+      "nested": {
+        "data": "data"
+      }
+    }
+  }
+}

@@ -1,68 +1,153 @@
 var assert = require('assert');
-var rhetorical = require('../../rhetorical');
+var path = require('path')
+var Rhetorical = require('../lib/rhetorical');
 
 
-var test_data = {
-  string1 : '1',
-  num1    : 1,
-  bool1   : true,
-  bool2   : false,
-  //date1   : new Date(2000, 0, 1),
-  object1 : {
-    num2    : 2,
-    string2 : '2'
-  }
-}
+
+
+describe.only('rhetorical assert file path generation', function () {
+
+  it('should accept false as file parameter', function () {
+    var rhetorical = new Rhetorical({
+      assert_file : false
+    });
+
+    assert.equal(rhetorical.full_asset_file_path, null);
+  })
+
+  it('should handle no file or directory name', function () {
+
+    var rhetorical = new Rhetorical({
+
+    });
+
+    var result_path = path.parse(rhetorical.full_asset_file_path);
+    var current_file_path = path.parse(__filename);
+
+    //default to same dir as test file
+    assert.equal(result_path.dir, current_file_path.dir);
+
+    //remove test file extention and add .assert.json
+    assert.equal(result_path.name, current_file_path.name + '.assert');
+    assert.equal(result_path.ext, '.json');
+
+  })
+
+  it('should handle only a relative file path', function () {
+    var file_name = 'asserts/rhetorical.assert.json';
+
+    var rhetorical = new Rhetorical({
+      assert_file : file_name,
+    });
+
+    var expected_path = path.resolve(__dirname, file_name)
+
+    assert.equal(rhetorical.full_asset_file_path, expected_path)
+  })
+
+  it('should handle only a absolute file path', function () {
+    var file_name = path.resolve(__dirname, 'rhetorical.assert.json')
+
+    var rhetorical = new Rhetorical({
+      assert_file : file_name,
+    });
+
+    assert.equal(rhetorical.full_asset_file_path, file_name)
+  })
+
+  it('should handle only a relative directory path', function () {
+    var directory_name = 'asserts';
+
+    var rhetorical = new Rhetorical({
+      assert_directory : directory_name,
+    });
+
+    var current_file_path = path.parse(__filename);
+
+    var expected_path = path.parse(path.resolve(__dirname, directory_name, current_file_path.name + '.assert.json'))
+    
+
+    var result_path = path.parse(rhetorical.full_asset_file_path);
+
+    assert.equal(result_path.dir, expected_path.dir);
+
+    //remove test file extention and add .assert.json
+    assert.equal(result_path.name, expected_path.name);
+    assert.equal(result_path.ext, expected_path.ext);
+  })
+
+  it('should handle only a absolute directory path', function () {
+    var directory_name = __dirname + '/asserts';
+
+    var rhetorical = new Rhetorical({
+      assert_directory : directory_name,
+    });
+
+    var current_file_path = path.parse(__filename);
+
+    var result_path = path.parse(rhetorical.full_asset_file_path);
+
+    assert.equal(result_path.dir, directory_name);
+
+    //remove test file extention and add .assert.json
+    assert.equal(result_path.name, current_file_path.name + '.assert');
+    assert.equal(result_path.ext, '.json');
+  })
+
+  //abs abs
+  //abs rel
+  //rel abs
+  //rel rel
+})
 
 describe('rhetorical', function () {
-
-  before(function () {
-    rhetorical.init({
-      file : __dirname + '/.asserts'
-    });
-  })
-
-  it ('should be equal to test data', function () {
-    rhetorical('my test data is', test_data);
-  })
-
-  it ('should work for other test_data', function () {
-    test_data.num1 = 2;
-    rhetorical('my mutated test data is', test_data);
+  var rhetorical = new Rhetorical({
+    //TODO:context, defaults to filename+testtitle
+    //TODO: file
+    assert_file : 'rhetorical.asserts.json'
   });
 
-  it ('should work as long as nums exists', function () {
-    test_data.num1 = Math.random();
-    test_data.object1.num2 = Math.random();
-    var meta_data = {
-      num1    : {$exists : true},
-      object1 : {
-        num2 : {$exists : true}
-      } 
-    }
-    rhetorical('my random test data is', test_data, meta_data);
-  });
+  it('should be equal to test data', function () {
 
-  it ('should work even though i run it later', function () {
-    //test_data.date1 = new Date();
+    var test_data = 1;
 
-    test_data.num1 = 1;
-    test_data.object1.num2 = 2;
+    rhetorical.ask('is test data', test_data);
+    rhetorical.ask('is test data', test_data);
 
-    var meta_data = {
-      date1 : {$exists : true}
-    }
-    rhetorical('my testdata today is', test_data, meta_data);
-  });
-
-  it ('should NOT work', function () {
-    test_data.string1 = 'something new';
-
-    //I ask the same question as in the first test, and expect
-    //it to fail, as the data has changed
     assert.throws(function () {
-      rhetorical('my test data is', test_data);  
+      test_data = 2;
+      rhetorical.ask('is test data', test_data);
     })
     
-   });
+  })
+
+  it('should be equal to test data', function () {
+    //NOTE: because the test share name, it will map to the same rethorical questions
+    var test_data = 10;
+
+    assert.throws(function () {
+      rhetorical.ask('is test data', test_data);
+    })
+  })
+
+  it('should be equal to new test data', function () {
+
+    var test_data = {
+      data : 'data',
+      nested : {
+        data : 'data'
+      }
+    };
+
+    rhetorical.ask('is test data', test_data);
+    rhetorical.ask('is test data', test_data);
+
+    assert.throws(function () {
+      test_data.data = 'other data'
+      rhetorical.ask('is test data', test_data);
+    })
+  })
+
 })
+
+//TODO: reorder arguments to ask(data, [metadata], [question])
