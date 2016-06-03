@@ -1,6 +1,6 @@
 {
   "name": "rhetorical",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "automatic assertion generation library",
   "main": "index.js",
   "scripts": {
